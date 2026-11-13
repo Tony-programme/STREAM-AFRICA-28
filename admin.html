@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - STREAM AFRICA 28</title>
+    <style>
+        :root {
+            --bg-color: #141414;
+            --card-bg: #1f1f1f;
+            --primary: #e50914;
+            --text: #ffffff;
+            --text-muted: #b3b3b3;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text);
+            display: flex;
+            min-height: 100vh;
+        }
+        /* Barre latérale */
+        .sidebar {
+            width: 250px;
+            background-color: #000000;
+            padding: 20px;
+            border-right: 1px solid #333;
+        }
+        .sidebar h2 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+        }
+        .sidebar ul {
+            list-style: none;
+        }
+        .sidebar li {
+            margin-bottom: 15px;
+        }
+        .sidebar a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            color: var(--text);
+        }
+        /* Contenu principal */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        .stat-card h3 {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .stat-card p {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        /* Formulaire et Tableau */
+        .panel {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .panel h3 {
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-muted);
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            border: 1px solid #444;
+            color: var(--text);
+            border-radius: 4px;
+        }
+        button {
+            background-color: var(--primary);
+            color: var(--text);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #f40612;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        th {
+            color: var(--text-muted);
+        }
+        .btn-delete {
+            background-color: #444;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+        }
+        .btn-delete:hover {
+            background-color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <h2>STREAM AFRICA 28</h2>
+        <ul>
+            <li><a href="#" class="active">Tableau de bord</a></li>
+            <li><a href="#ajout">Ajouter un contenu</a></li>
+            <li><a href="#catalogue">Catalogue</a></li>
+            <li><a href="index.html">Retour au site</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <header>
+            <h1>Panneau d'Administration</h1>
+            <span>Connecté en tant qu'Admin</span>
+        </header>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Vidéos</h3>
+                <p id="total-videos">2</p>
+            </div>
+            <div class="stat-card">
+                <h3>Utilisateurs Actifs</h3>
+                <p>1 245</p>
+            </div>
+            <div class="stat-card">
+                <h3>Vues ce mois</h3>
+                <p>48 920</p>
+            </div>
+        </section>
+
+        <section id="ajout" class="panel">
+            <h3>Ajouter un film ou une série</h3>
+            <form id="add-media-form">
+                <div class="form-group">
+                    <label for="title">Titre du contenu</label>
+                    <input type="text" id="title" required placeholder="Ex: Les Aventures à Abidjan">
+                </div>
+                <div class="form-group">
+                    <label for="category">Catégorie</label>
+                    <select id="category">
+                        <option value="Film">Film</option>
+                        <option value="Série">Série</option>
+                        <option value="Documentaire">Documentaire</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="url">Lien de la vidéo (URL ou chemin)</label>
+                    <input type="text" id="url" required placeholder="Ex: videos/film1.mp4">
+                </div>
+                <button type="submit">Publier le contenu</button>
+            </form>
+        </section>
+
+        <section id="catalogue" class="panel">
+            <h3>Catalogue actuel</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Catégorie</th>
+                        <th>Lien</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="media-list">
+                    <tr>
+                        <td>L'Étoile d'Afrique</td>
+                        <td>Film</td>
+                        <td>videos/etoile.mp4</td>
+                        <td><button class="btn-delete" onclick="deleteRow(this)">Supprimer</button></td>
+                    </tr>
+                    <tr>
+                        <td>Chroniques Urbaines</td>
+                        <td>Série</td>
+                        <td>videos/chroniques.mp4</td>
+                        <td><button class="btn-delete" onclick="deleteRow(this)">Supprimer</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script>
+        const form = document.getElementById('add-media-form');
+        const mediaList = document.getElementById('media-list');
+        const totalVideos = document.getElementById('total-videos');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('title').value;
+            const category = document.getElementById('category').value;
+            const url = document.getElementById('url').value;
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${title}</td>
+                <td>${category}</td>
+                <td>${url}</td>
+                <td><button class="btn-delete" onclick="deleteRow(this)">Supprimer</button></td>
+            `;
+
+            mediaList.appendChild(row);
+            updateCount();
+            form.reset();
+        });
+
+        function deleteRow(btn) {
+            const row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            updateCount();
+        }
+
+        function updateCount() {
+            totalVideos.textContent = mediaList.children.length;
+        }
+    </script>
+</body>
+</html>
